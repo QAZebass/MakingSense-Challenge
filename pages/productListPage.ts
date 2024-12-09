@@ -49,6 +49,7 @@ export class ProductListPage {
         await this.maxPriceInput.type(maxPrice.toString(), { delay: 300 });
     };
     async applyPriceFilter() {
+        await this.submitMaxPriceButton.waitFor({state: 'visible'})
         await expect(this.submitMaxPriceButton).toBeVisible();
         await expect(this.submitMaxPriceButton).toBeEnabled();
         await this.submitMaxPriceButton.click();
@@ -60,12 +61,14 @@ export class ProductListPage {
         console.log(`Filter applied:${maxPrice}`);
     }
     async clickOnSortingDropdown() {
-        await this.sortingDropdownWrapper.waitFor({ state: 'attached', timeout: 6000 });
-        await this.sortingDropdown.waitFor({ state: 'attached' });
+        await this.sortingDropdown.waitFor({ state: 'attached'});
+        await this.sortingDropdown.waitFor({state: 'visible'})
         await expect(this.sortingDropdown).toBeEnabled();
+        await expect(this.sortingDropdown).toBeVisible()
+        await this.page.waitForTimeout(200);
+        await this.sortingDropdown.hover()
         await this.sortingDropdown.click();
-        await this.dropDownListWrapper.waitFor({});
-        await this.dropDownList.waitFor({ state: 'visible' });
+        await this.dropDownList.waitFor({ state: 'visible'});
         await expect(this.dropDownList).toBeVisible();
     }
 
