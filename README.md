@@ -1,4 +1,5 @@
-# MakingSense-Challenge
+
+![github-header-image](https://github.com/user-attachments/assets/d797e3c5-1e8a-4f8b-90f7-b8450889f771)
 
 ## Folder Structure
 ```
