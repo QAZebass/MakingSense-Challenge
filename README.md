@@ -38,3 +38,7 @@ know the number of results available.
 ┣ 📜README.md
 ┗ 📜yarn.lock
 ```
+## How to run the test
+
+First, clone the repository using gitbash
+```git clone git@github.com:QAZebass/MakingSense-Challenge.git```
