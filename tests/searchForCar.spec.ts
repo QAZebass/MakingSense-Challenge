@@ -9,13 +9,7 @@ test.describe('Making Sense Challenge', async () => {
         await homePage.visitMercadoLibre('/');
 
     });
-    test.afterEach(async ({ page }, testInfo) => {
-        if (testInfo.status === 'failed') {
-          // Capture a screenshot if the test failed
-          await page.screenshot({ path: `screenshots/${testInfo.title}-failed.png` });
-        }
-      });
-    test('Validate that the user can search for a car', async ({ page }) => {
+    test('Validate that the user can search for cheap cars', async ({ page }) => {
         const homePage = new HomePage(page);
         const productListPage = new ProductListPage(page);
         await homePage.typeInSearch(staticData.Input.product);
@@ -25,6 +19,8 @@ test.describe('Making Sense Challenge', async () => {
         await productListPage.applyPriceFilter();
         await productListPage.clickOnSortingDropdown();
         const sortedPrices = await productListPage.selectFromCheapestToHighest();
+        console.log(`Cars sorted from low to high: ${JSON.stringify(sortedPrices, null, 2)}`);
     });
+
 
 });
