@@ -1,0 +1,15 @@
+{
+  "name": "MakingSense-Challenge",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:QAZebass/MakingSense-Challenge.git",
+  "author": "QAZebass <ze.basszender@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.1"
+  },
+  "scripts": {
+    "test": "npx playwright test"
+  }
+}
