@@ -1,5 +1,9 @@
 
 ![github-header-image](https://github.com/user-attachments/assets/d797e3c5-1e8a-4f8b-90f7-b8450889f771)
+## About the challenge
+A person wants to go to buy a car on www.mercadolibre.com. He is not sure about what model to buy and, for this reason, he wants to search for all the cars that have a price below
+$2.000.000. But he has some considerations to take into account: The car must be located in Cordoba, and the product list must be shown from lowest to highest price. In addition, he wants to
+know the number of results available.
 
 ## Folder Structure
 ```
