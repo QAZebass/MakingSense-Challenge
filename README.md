@@ -40,5 +40,14 @@ know the number of results available.
 ```
 ## How to run the test
 
-First, clone the repository using gitbash
+1. First, clone the repository using gitbash in your desired folder (usually C:)
 ```git clone git@github.com:QAZebass/MakingSense-Challenge.git```
+
+2. Then, inside the folder of the repository, you can open gitbash there and do:
+```code .```
+
+3. After that, open the console in VScode and do "yarn" to install all the depedencies in the project
+```yarn```
+
+4. Finally, to run the tests in parallel mode, do
+```yarn test``` or ```yarn test --ui``` for running them in the Playwright runner
