@@ -21,16 +21,9 @@ know the number of results available.
 ┃ ┗ 📂data
 ┃   ┗ 📜staticInputData.json
 ┣ 📂test-results
-┃ ┣ 📂.playwright-artifacts-19
-┃ ┃ ┗ 📂traces
-┃ ┣ 📂.playwright-artifacts-20
-┃ ┃ ┗ 📂traces
-┃ ┗ 📂.playwright-artifacts-21
-┃   ┗ 📂traces
+┃ ┗ 📜.last-run.json
 ┣ 📂tests
-┃ ┗ 📜searchForCar.spec.ts
-┣ 📂tests-examples
-┃ ┗ 📜demo-todo-app.spec.ts
+┃ ┗ 📜searchForCars.spec.ts
 ┣ 📜.gitignore
 ┣ 📜global.d.ts
 ┣ 📜package.json
@@ -46,8 +39,7 @@ know the number of results available.
 2. Then, inside the folder of the repository, you can open gitbash there and do:
 ```code .```
 
-3. After that, open the console in VScode and do "yarn" to install all the depedencies in the project
-```yarn```
+3. After that, open the console in VScode and do ```yarn``` to install all the depedencies in the project
 
 4. Finally, to run the tests in parallel mode, do
 ```yarn test``` or ```yarn test --ui``` for running them in the Playwright runner
