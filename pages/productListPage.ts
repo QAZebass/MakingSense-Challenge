@@ -53,9 +53,6 @@ export class ProductListPage {
         await expect(this.submitMaxPriceButton).toBeVisible();
         await expect(this.submitMaxPriceButton).toBeEnabled({ timeout: 6000 });
         await this.submitMaxPriceButton.click();
-        const formatNumberWithDots = (num: number): string => {
-            return new Intl.NumberFormat('de-DE').format(num);
-        };
         await expect(this.maxPriceFilterTag).toBeVisible();
         const maxPrice = await this.maxPriceFilterTag.textContent();
         console.log(`Filter applied:${maxPrice}`);

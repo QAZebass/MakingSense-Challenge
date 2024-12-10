@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {},
+    "include": [
+        "global.d.ts",
+        "pages/**/*.ts",
+        "tests/**/*.ts"
+    ]
+}
