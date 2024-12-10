@@ -15,8 +15,6 @@ know the number of results available.
 ┃ ┗ 📜productListPage.ts
 ┣ 📂playwright-report
 ┃ ┗ 📜index.html
-┣ 📂screenshots
-┃ ┗ 📜Validate that the user can search for a car-failed.png
 ┣ 📂support
 ┃ ┗ 📂data
 ┃   ┗ 📜staticInputData.json
@@ -29,6 +27,7 @@ know the number of results available.
 ┣ 📜package.json
 ┣ 📜playwright.config.ts
 ┣ 📜README.md
+┣ 📜tsconfig.json
 ┗ 📜yarn.lock
 ```
 ## How to run the test
