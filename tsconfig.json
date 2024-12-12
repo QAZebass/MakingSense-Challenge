@@ -1,5 +1,17 @@
 {
-    "compilerOptions": {},
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "strict": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "typeRoots": [
+            "./node_modules/@types",
+            "./global.d.ts"
+        ],
+    },
     "include": [
         "global.d.ts",
         "pages/**/*.ts",
