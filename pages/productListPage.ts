@@ -9,7 +9,9 @@ export class ProductListPage {
     private maxPriceInput: Locator;
     private submitMaxPriceButton: Locator;
     private sortingDropdownWrapper: Locator;
+    private sortingDropdownTitle: Locator;
     private sortingDropdown: Locator;
+    private dropDownOptionTitle: Locator;
     private dropDownListWrapper: Locator;
     private dropDownList: Locator;
     private fromLowToHighOption: Locator;
@@ -25,8 +27,10 @@ export class ProductListPage {
         this.maxPriceFilterTag = this.page.locator('[id=":R6clee:"]');
         this.maxPriceInput = this.page.locator('[data-testid="Maximum-price"]');
         this.submitMaxPriceButton = this.page.getByTestId('submit-price');
-        this.sortingDropdownWrapper = this.page.locator('[class="ui-search-sort-filter"]');
+        this.sortingDropdownWrapper = this.page.locator('[class="ui-search-view-options"]');
+        this.sortingDropdownTitle = this.page.locator('[class="ui-search-view-options__title"]');
         this.sortingDropdown = this.page.getByRole('button', { name: 'Más relevantes' });
+        this.dropDownOptionTitle = this.page.locator('[class="andes-list__item-primary"]');
         this.dropDownListWrapper = this.page.locator('[class="andes-floating-menu andes-floating-menu--show"]');
         this.dropDownList = this.page.getByRole("listbox");
         this.fromLowToHighOption = this.page.getByRole('option', { name: 'Menor precio' });
@@ -49,31 +53,36 @@ export class ProductListPage {
         await this.maxPriceInput.type(maxPrice.toString(), { delay: 300 });
     };
     async applyPriceFilter() {
-        await this.submitMaxPriceButton.waitFor({ state: 'visible' });
+        await this.submitMaxPriceButton.waitFor({ state: 'visible', timeout: 6000 });
         await expect(this.submitMaxPriceButton).toBeVisible();
-        await expect(this.submitMaxPriceButton).toBeEnabled({ timeout: 6000 });
+        await expect(this.submitMaxPriceButton).toBeEnabled();
         await this.submitMaxPriceButton.click();
         await expect(this.maxPriceFilterTag).toBeVisible();
         const maxPrice = await this.maxPriceFilterTag.textContent();
         console.log(`Filter applied:${maxPrice}`);
     }
     async clickOnSortingDropdown() {
-        await this.page.waitForTimeout(700);
+
         await this.sortingDropdown.waitFor({ state: 'attached' });
         await this.sortingDropdown.waitFor({ state: 'visible' });
+        const dropDownTitle = await this.sortingDropdownWrapper.locator(this.sortingDropdownTitle).textContent();
+        expect(dropDownTitle).toContain('Ordenar por');
         await expect(this.sortingDropdown).toBeEnabled();
         await expect(this.sortingDropdown).toBeVisible();
         await this.sortingDropdown.hover();
-        await this.sortingDropdown.click();
-        await this.dropDownList.waitFor({ state: 'visible' });
-        await expect(this.dropDownList).toBeVisible();
+
+        await expect(async () => {
+            await this.sortingDropdown.click();
+            await expect(this.dropDownList).toBeVisible();
+        }).toPass();
     }
 
     async selectFromCheapestToHighest() {
         await expect(this.fromLowToHighOption).toBeAttached();
         await expect(this.fromLowToHighOption).toBeVisible();
+        const optionTitle = await this.fromLowToHighOption.locator(this.dropDownOptionTitle).textContent();
+        expect(optionTitle).toEqual('Menor precio');
         await this.fromLowToHighOption.click();
-
         const sortedPrices = await this.getSortedResults();
         return sortedPrices;
     }
