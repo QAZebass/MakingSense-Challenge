@@ -100,6 +100,7 @@ export class ProductListPage {
             };
             sortedPrices.push(productInformation);
         }
-        return sortedPrices;
+        const numberOfResults = sortedPrices.length;
+        return { sortedPrices, numberOfResults };
     }
 }
