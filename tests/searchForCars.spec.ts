@@ -18,8 +18,8 @@ test.describe('Making Sense Challenge', async () => {
         await productListPage.typeInMaxPrice(staticData.Input.maxPrice);
         await productListPage.applyPriceFilter();
         await productListPage.clickOnSortingDropdown();
-        const sortedPrices = await productListPage.selectFromCheapestToHighest();
-        console.log(`Cars sorted from low to high: ${JSON.stringify(sortedPrices, null, 2)}`);
+        const { sortedPrices, numberOfResults } = await productListPage.selectFromCheapestToHighest();
+        console.log(`The number of cars found under 6.000.000 is: ${numberOfResults}: ${JSON.stringify(sortedPrices, null, 2)}`);
     });
 
 
