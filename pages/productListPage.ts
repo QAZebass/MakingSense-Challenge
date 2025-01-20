@@ -1,7 +1,9 @@
 import { expect, Page, Locator } from '@playwright/test';
+import { ProductListPageValidations } from './productListPageValidations';
 
 export class ProductListPage {
     page: Page;
+    private verifyer: ProductListPageValidations;
     private locationTitle: Locator;
     private priceTitle: Locator;
     private provinceFilterTag: Locator;
@@ -21,6 +23,7 @@ export class ProductListPage {
 
     constructor(page: Page) {
         this.page = page;
+        this.verifyer = new ProductListPageValidations(this);
         this.locationTitle = this.page.locator('[class="ui-search-filter-dt-title"]').filter({ hasText: 'Ubicación' });
         this.priceTitle = this.page.locator('[class="ui-search-money-picker-dt-title"]');
         this.provinceFilterTag = this.page.locator('[class="andes-tag__label"]').first();
@@ -36,7 +39,11 @@ export class ProductListPage {
         this.fromLowToHighOption = this.page.getByRole('option', { name: 'Menor precio' });
         this.productWrapper = this.page.locator('[class="ui-search-layout__item"]');
         this.productPrice = this.page.locator('[class$="--cents-superscript"]');
-        this.productName = this.page.locator('[class="poly-box poly-component__title"]');
+        this.productName = this.page.locator('[class="poly-component__title"]');
+    }
+
+    verifyThat() {
+        return this.verifyer;
     }
 
     async applyProvinceFilter(province: string) {
@@ -88,7 +95,7 @@ export class ProductListPage {
     }
 
     async getSortedResults() {
-        const sortedPrices: any = [];
+        const sortedProducts: any = [];
         await expect(this.productWrapper.first()).toBeVisible();
         const allProducts = await this.productWrapper.all();
         for (const product of allProducts) {
@@ -98,9 +105,8 @@ export class ProductListPage {
                 car: names,
                 price: prices
             };
-            sortedPrices.push(productInformation);
+            sortedProducts.push(productInformation);
         }
-        const numberOfResults = sortedPrices.length;
-        return { sortedPrices, numberOfResults };
+        return sortedProducts;
     }
 }
