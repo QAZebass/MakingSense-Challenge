@@ -1,5 +1,6 @@
 import { expect, Page, Locator } from '@playwright/test';
 import { ProductListPageValidations } from './productListPageValidations';
+import { parse } from 'path';
 
 export class ProductListPage {
     page: Page;
@@ -72,11 +73,13 @@ export class ProductListPage {
 
         await this.sortingDropdown.waitFor({ state: 'attached' });
         await this.sortingDropdown.waitFor({ state: 'visible' });
+
         const dropDownTitle = await this.sortingDropdownWrapper.locator(this.sortingDropdownTitle).textContent();
         expect(dropDownTitle).toContain('Ordenar por');
         await expect(this.sortingDropdown).toBeEnabled();
         await expect(this.sortingDropdown).toBeVisible();
         await this.sortingDropdown.hover();
+        await this.sortingDropdown.click();
 
         await expect(async () => {
             await this.sortingDropdown.click();
@@ -90,23 +93,21 @@ export class ProductListPage {
         const optionTitle = await this.fromLowToHighOption.locator(this.dropDownOptionTitle).textContent();
         expect(optionTitle).toEqual('Menor precio');
         await this.fromLowToHighOption.click();
-        const sortedPrices = await this.getSortedResults();
+        const sortedPrices = await this.getSortedPrices();
         return sortedPrices;
     }
 
-    async getSortedResults() {
-        const sortedProducts: any = [];
+    async getSortedPrices() {
+        const sortedPrices: any = [];
         await expect(this.productWrapper.first()).toBeVisible();
         const allProducts = await this.productWrapper.all();
         for (const product of allProducts) {
-            const names: any = await product.locator(this.productName).textContent();
-            const prices: any = await product.locator(this.productPrice).textContent();
-            const productInformation: models.ProductInfo = {
-                car: names,
-                price: prices
-            };
-            sortedProducts.push(productInformation);
+            const prices: string | null = await product.locator(this.productPrice).textContent();
+            if (!prices?.includes('US$')) {
+                const cleanedPrice = Number(prices?.replace(/[$.]/g, ''));
+                sortedPrices.push(cleanedPrice);
+            }
         }
-        return sortedProducts;
+        return sortedPrices;
     }
 }

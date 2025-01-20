@@ -10,8 +10,10 @@ export class ProductListPageValidations {
     }
 
     async pricesAreSorted() {
-        const sortedProducts = await this.productListPage.getSortedResults();
-        //const sortedPrices = await sortedProducts.map((product: { price: any; }) => product.price);
-        console.log(`These are the sorted products ${JSON.stringify(sortedProducts, null, 2)}`);
+        const sortedPrices = await this.productListPage.getSortedPrices();
+        console.log(sortedPrices);
+        const isSorted = (arr: any) => arr.every((v: number, i: number, a: number[]) => !i || a[i - 1] <= v);
+        expect(isSorted(sortedPrices)).toBe(true);
+
     }
 }
