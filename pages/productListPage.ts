@@ -52,7 +52,7 @@ export class ProductListPage {
         const selectedProvince = this.page.getByTitle(`${province}`, { exact: false });
         await expect(selectedProvince).toBeVisible();
         await selectedProvince.click();
-        await expect(this.provinceFilterTag).toBeVisible();
+        await expect(this.provinceFilterTag).toBeVisible({ timeout: 5000 });
         await expect(this.provinceFilterTag).toHaveText(province);
         console.log(`Filter applied: ${await this.provinceFilterTag.textContent()}`);
     }
@@ -71,16 +71,11 @@ export class ProductListPage {
     }
     async clickOnSortingDropdown() {
 
-        await this.sortingDropdown.waitFor({ state: 'attached' });
-        await this.sortingDropdown.waitFor({ state: 'visible' });
-
+        await this.page.waitForLoadState('domcontentloaded');
+        await expect(this.sortingDropdown).toBeVisible();
+        await expect(this.sortingDropdown).toBeEnabled();
         const dropDownTitle = await this.sortingDropdownWrapper.locator(this.sortingDropdownTitle).textContent();
         expect(dropDownTitle).toContain('Ordenar por');
-        await expect(this.sortingDropdown).toBeEnabled();
-        await expect(this.sortingDropdown).toBeVisible();
-        await this.sortingDropdown.hover();
-        await this.sortingDropdown.click();
-
         await expect(async () => {
             await this.sortingDropdown.click();
             await expect(this.dropDownList).toBeVisible();
